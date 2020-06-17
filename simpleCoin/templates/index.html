@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{{ url_for('static' , filename='css/css.css') }}">
+    <title>Blocks</title>
+  </head>
+  <body>
+    {% for block in blocks %}
+      <div class="blocks">
+        <h2 class = "index"> <b>Block index: {{block.index}} </b></h2>
+        <h5>timestamp: {{block.timestamp}}</h5>
+        <h5>Hash: {{block.hash}}</h5>
+        <h5>Data: {{block.data}}</h5>
+      </div>
+    {% endfor %}
+  </body>
+</html>

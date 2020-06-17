@@ -3,7 +3,7 @@ import hashlib
 import json
 import requests
 import base64
-from flask import Flask, request
+from flask import Flask , render_template , url_for , request
 from multiprocessing import Process, Pipe
 import ecdsa
 
@@ -180,7 +180,12 @@ def validate_blockchain(block):
     return True
 
 
-@node.route('/blocks', methods=['GET'])
+@node.route("/")
+def home():
+    return render_template("home.html" )
+
+
+@node.route('/blocks', methods=['GET', 'POST'])
 def get_blocks():
     # Load current blockchain. Only you should update your blockchain
     if request.args.get("update") == MINER_ADDRESS:
@@ -197,10 +202,9 @@ def get_blocks():
             "hash": block.hash
         }
         chain_to_send_json.append(block)
-
     # Send our chain to whomever requested it
-    chain_to_send = json.dumps(chain_to_send_json)
-    return chain_to_send
+
+    return render_template("index.html" , blocks = chain_to_send_json )
 
 
 @node.route('/txion', methods=['GET', 'POST'])
